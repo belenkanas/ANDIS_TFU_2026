@@ -48,3 +48,7 @@ class MenuService:
 
     def actualizar_item(self, item_id, data):
         return self._admin.actualizar_item(item_id, data)
+    
+    def eliminar_item(self, item_id):
+        return self._admin.eliminar_item(item_id)
+    

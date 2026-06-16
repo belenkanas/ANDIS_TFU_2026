@@ -25,3 +25,8 @@ def get_router(service: MenuService) -> APIRouter:
         return service.actualizar_item(item_id, data)
 
     return router
+
+    # dueño elimina un item del menu
+    @router.delete("/{item_id}", summary="Eliminar ítem del menú (dueño)")
+    def eliminar_item(item_id: int):
+        return service.eliminar_item(item_id)   

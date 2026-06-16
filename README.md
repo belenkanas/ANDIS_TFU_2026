@@ -12,6 +12,8 @@ py -m pip install -r requirements.txt
 
 ## Ejecutar la API
 
+Ubicados en el directorio ```ANDIS_TFU_2026\truck-and-roll```
+
 ```bash
 py -m uvicorn main:app --reload
 ```

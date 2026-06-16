@@ -39,3 +39,9 @@ class MenuRepository(ILectorMenu, IEscritorMenu):
         self._items[self._next_id] = nuevo
         self._next_id += 1
         return nuevo
+    
+    def eliminar(self, item_id: int) -> bool:
+        if item_id in self._items:
+            del self._items[item_id]
+            return True
+        return False

@@ -15,8 +15,7 @@ app = FastAPI(
 - **PUC002** – Actualizar estado del pedido 
 - **PUC003** – Marcar pedido como entregado
 - **PUC004** – Notificar al cliente cuando el pedido está listo
-    """,
-    version="2.0.0"
+    """
 )
 
 menu_repo = MenuRepository()
