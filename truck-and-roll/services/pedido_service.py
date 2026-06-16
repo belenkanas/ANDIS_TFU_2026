@@ -57,6 +57,17 @@ class PedidoService:
     def listar_pedidos(self) -> List[Pedido]:
         return self._pedido_repo.listar()
 
+    # cocina solo ve lo que esta por preparar o en preparacion
+    def listar_pedidos_cocina(self) -> List[Pedido]:
+        return [
+            p for p in self._pedido_repo.listar()
+            if p.estado in [EstadoPedido.PENDIENTE, EstadoPedido.EN_PREPARACION]
+        ]
+
+    # mostrador solo ve pedidos listos para entregar
+    def listar_pedidos_mostrador(self) -> List[Pedido]:
+        return [p for p in self._pedido_repo.listar() if p.estado == EstadoPedido.LISTO]
+
     def obtener_pedido(self, numero: int) -> Pedido:
         pedido = self._pedido_repo.buscar_por_numero(numero)
         if not pedido:
@@ -85,3 +96,11 @@ class PedidoService:
     # Patrón State valida que el pedido este en estado LISTO antes de permitirlo
     def entregar_pedido(self, numero: int) -> Pedido:
         return self.cambiar_estado(numero, EstadoPedido.ENTREGADO)
+
+    # cocina marca el pedido como EN_PREPARACION (debe venir de PENDIENTE)
+    def marcar_pedido_en_preparacion(self, numero: int) -> Pedido:
+        return self.cambiar_estado(numero, EstadoPedido.EN_PREPARACION)
+
+    # cocina marca el pedido como LISTO (debe venir de EN_PREPARACION)
+    def marcar_pedido_listo(self, numero: int) -> Pedido:
+        return self.cambiar_estado(numero, EstadoPedido.LISTO)
