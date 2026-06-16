@@ -13,8 +13,13 @@ class MenuRepository(ILectorMenu, IEscritorMenu):
             1: MenuItem(id=1, nombre="Hamburguesa clásica", descripcion="Pan, carne, lechuga, tomate", precio=320.0),
             2: MenuItem(id=2, nombre="Papas fritas", descripcion="Porción grande", precio=150.0),
             3: MenuItem(id=3, nombre="Gaseosa", descripcion="Lata 350ml", precio=90.0),
+            4: MenuItem(id=4, nombre="Hamburguesa doble", descripcion="Doble carne, cheddar y cebolla caramelizada", precio=450.0),
+            5: MenuItem(id=5, nombre="Wrap de pollo", descripcion="Pollo grillado, lechuga, tomate y salsa", precio=380.0, disponible=False),
+            6: MenuItem(id=6, nombre="Ensalada César", descripcion="Lechuga, pollo, croutones y aderezo César", precio=300.0, disponible=False),
+            7: MenuItem(id=7, nombre="Agua mineral", descripcion="Botella 500ml", precio=70.0),
+            8: MenuItem(id=8, nombre="Brownie con helado", descripcion="Brownie tibio con bocha de vainilla", precio=240.0, disponible=False),
         }
-        self._next_id = 4
+        self._next_id = max(self._items.keys(), default=0) + 1
 
     # filtra solo los items con disponible=True (los que ve el cajero)
     def listar_disponibles(self) -> List[MenuItem]:
@@ -33,7 +38,7 @@ class MenuRepository(ILectorMenu, IEscritorMenu):
         self._items[item.id] = item
         return item
 
-    # construye el MenuItem con el proximo id disponible y lo guarda
+    # construye el MenuItem con el proximo id disponible y lo guarda. No se usan huecos de ids eliminados.
     def crear(self, nombre: str, descripcion: str, precio: float) -> MenuItem:
         nuevo = MenuItem(id=self._next_id, nombre=nombre, descripcion=descripcion, precio=precio)
         self._items[self._next_id] = nuevo

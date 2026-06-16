@@ -33,6 +33,13 @@ class MenuAdminService:
         actualizado = item.model_copy(update=data.model_dump(exclude_none=True))  # model_copy actualiza solo los campos que mando el dueño, ignora los None
         return self._repo.guardar(actualizado)
 
+    def eliminar_item(self, item_id: int) -> dict:
+        if not self._repo.buscar_por_id(item_id):
+            raise HTTPException(status_code=404, detail="Ítem no encontrado")
+
+        self._repo.eliminar(item_id)
+        return {"ok": True, "mensaje": "Ítem eliminado"}
+
 
 # el router habla con MenuService y no necesita saber que hay dos services adentro
 class MenuService:
